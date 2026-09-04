@@ -128,12 +128,16 @@
             gap: 0.75rem;
         }
 
-        .btn:hover {
+        .btn:hover:not(:disabled) {
             transform: translateY(-2px);
         }
 
-        .btn:active {
+        .btn:active:not(:disabled) {
             transform: translateY(0);
+        }
+        
+        .btn:disabled {
+            cursor: default;
         }
 
         .btn-primary {
@@ -142,7 +146,7 @@
             box-shadow: 0 10px 20px -5px rgba(176, 47, 58, 0.4);
         }
 
-        .btn-primary:hover {
+        .btn-primary:hover:not(:disabled) {
             background-color: #922530;
             box-shadow: 0 15px 25px -5px rgba(176, 47, 58, 0.5);
             color: white;
@@ -155,7 +159,7 @@
             border: 2px solid rgba(0, 0, 0, 0.05);
         }
 
-        .btn-secondary:hover {
+        .btn-secondary:hover:not(:disabled) {
             box-shadow: var(--shadow-md);
             border-color: rgba(0, 0, 0, 0.1);
         }
@@ -166,7 +170,7 @@
             box-shadow: 0 10px 20px -5px rgba(0, 109, 99, 0.4);
         }
         
-        .btn-teal:hover {
+        .btn-teal:hover:not(:disabled) {
             background-color: #00554c;
             box-shadow: 0 15px 25px -5px rgba(0, 109, 99, 0.5);
             color: white;
@@ -530,6 +534,43 @@
             height: 10px;
             border-radius: 50%;
         }
+        
+        /* General Info Sections */
+        .info-section {
+            padding: 6rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .info-icon {
+            font-size: 3rem;
+            color: var(--teal);
+            margin-bottom: 1.5rem;
+            background: rgba(0, 109, 99, 0.1);
+            padding: 1.5rem;
+            border-radius: 50%;
+        }
+        
+        .info-section h2 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .info-section p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .disclaimer-text {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: auto;
+            padding-top: 1rem;
+            opacity: 0.8;
+            font-style: italic;
+        }
 
         /* Pro Section */
         .pro-section {
@@ -728,6 +769,10 @@
                 grid-column: span 1;
                 grid-row: span 2;
             }
+            
+            .card-wide-bottom {
+                grid-column: span 3;
+            }
         }
     </style>
 </head>
@@ -748,12 +793,13 @@
         </a>
         <div class="nav-links">
             <a href="#features">Features</a>
-            <a href="#pro">Pro</a>
+            <a href="#pro">Fuzami Pro</a>
+            <a href="support.html">Support</a>
         </div>
         <div class="nav-action">
-            <a href="https://apps.apple.com/app/id6766658888" target="_blank" class="btn btn-primary" style="padding: 0.5rem 1.5rem; font-size: 1rem;">
-                <i class="fa-brands fa-apple"></i> App Store
-            </a>
+            <button class="btn btn-primary" style="padding: 0.5rem 1.5rem; font-size: 1rem; opacity: 0.7; cursor: default; box-shadow: none;" disabled>
+                Coming soon on the App Store
+            </button>
         </div>
     </nav>
 
@@ -769,19 +815,19 @@
         </div>
         
         <h1 class="fade-up" style="transition-delay: 0.2s;">
-            Small moments, <span class="highlight">kept forever.</span>
+            Everyday care. <span class="highlight">A lifetime of memories.</span>
         </h1>
         
         <p class="hero-subtitle fade-up" style="transition-delay: 0.3s;">
-            Care for today. Memories for years. A warm, private, and beautiful space for everything about your furry family members.
+            Keep your pet's daily moments, care records, walks, and favorite photos together in one private, thoughtfully designed app for iPhone and iPad.
         </p>
         
         <div class="hero-cta fade-up" style="transition-delay: 0.4s;">
-            <a href="https://apps.apple.com/app/id6766658888" target="_blank" class="btn btn-primary">
-                <i class="fa-brands fa-apple"></i> Download for iOS
-            </a>
-            <a href="#features" class="btn btn-secondary">
+            <a href="#features" class="btn btn-primary">
                 Explore Features
+            </a>
+            <a href="#pro" class="btn btn-secondary">
+                Learn about Fuzami Pro
             </a>
         </div>
     </header>
@@ -789,7 +835,8 @@
     <!-- Features Bento Grid -->
     <section class="features" id="features">
         <div class="section-header fade-up">
-            <h2>Everything they need, everything you love.</h2>
+            <h2>Everything that matters, all in one place.</h2>
+            <p>Fuzami helps you care for your pet today while preserving the moments you will want to remember tomorrow.</p>
         </div>
         
         <div class="bento-grid">
@@ -799,7 +846,7 @@
                     <i class="fa-solid fa-heart"></i>
                 </div>
                 <h3 class="bento-title">Daily Moments & Moods</h3>
-                <p class="bento-desc">Capture their daily vibes. Log photos, quick notes, and track how they're feeling each day.</p>
+                <p class="bento-desc">Save a photo, choose a mood, and add a note to capture the personality of each day. Revisit favorite moments in a simple photo timeline.</p>
                 
                 <div class="mood-dots" style="margin-bottom: 0;">
                     <div class="mood-dot-wrap"><div class="mood-dot" style="background: var(--mood-sleepy)"></div> Sleepy</div>
@@ -816,13 +863,8 @@
                     <i class="fa-solid fa-stethoscope"></i>
                 </div>
                 <h3 class="bento-title">Care & Health</h3>
-                <p class="bento-desc">Stay on top of their well-being. Track vaccinations, medications, surgeries, vet visits, and set up recurring care plans with smart reminders.</p>
-                <ul style="list-style:none;margin-top:auto;display:flex;flex-direction:column;gap:10px;">
-                    <li style="display:flex;align-items:center;gap:8px;font-weight:700;font-size:0.95rem;"><i class="fa-solid fa-syringe" style="color:var(--teal);width:20px;"></i> Vaccinations</li>
-                    <li style="display:flex;align-items:center;gap:8px;font-weight:700;font-size:0.95rem;"><i class="fa-solid fa-pills" style="color:var(--teal);width:20px;"></i> Medications</li>
-                    <li style="display:flex;align-items:center;gap:8px;font-weight:700;font-size:0.95rem;"><i class="fa-solid fa-user-doctor" style="color:var(--teal);width:20px;"></i> Vet Visits</li>
-                    <li style="display:flex;align-items:center;gap:8px;font-weight:700;font-size:0.95rem;"><i class="fa-solid fa-bell" style="color:var(--teal);width:20px;"></i> Smart Reminders</li>
-                </ul>
+                <p class="bento-desc">Organize vaccinations, medications, vet visits, weight entries, health documents, and recurring care plans. Set local reminders for the tasks you choose to track.</p>
+                <p class="disclaimer-text">Fuzami helps you organize information and does not provide veterinary diagnosis, treatment, or advice.</p>
             </div>
 
             <!-- Walk Tracking -->
@@ -831,7 +873,7 @@
                     <i class="fa-solid fa-map-location-dot"></i>
                 </div>
                 <h3 class="bento-title">Walk Tracking</h3>
-                <p class="bento-desc">Live GPS route tracking, duration, distance, and beautiful Paw Route cards to share your adventures.</p>
+                <p class="bento-desc">Start a walk to record its route, distance, and duration using your device's location. Look back at completed walks and turn a favorite route into a shareable Paw Route card.</p>
             </div>
 
             <!-- Card Studio -->
@@ -840,65 +882,98 @@
                     <i class="fa-solid fa-wand-magic-sparkles"></i>
                 </div>
                 <h3 class="bento-title">Card Studio</h3>
-                <p class="bento-desc">Turn photos into shareable Milestones, Mugshots, and ID cards with just a tap.</p>
+                <p class="bento-desc">Create personalized cards from your pet's photos. Celebrate birthdays, adoption anniversaries, milestones, moods, walks, and the little details that make your pet unique.</p>
+            </div>
+            
+            <!-- Recaps & Time-Lapses -->
+            <div class="bento-card card-wide-bottom fade-up" style="transition-delay: 0.4s;">
+                <div class="bento-icon" style="color: var(--burgundy);">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                </div>
+                <h3 class="bento-title">Recaps & Time-Lapses</h3>
+                <p class="bento-desc">Turn everyday entries into monthly and yearly recaps. Capture photos over time and create a growth time-lapse when you are ready to see how far your companion has come.</p>
             </div>
         </div>
+    </section>
+
+    <!-- Privacy Section -->
+    <section class="info-section fade-up">
+        <i class="fa-solid fa-shield-halved info-icon"></i>
+        <h2>Your pet's story belongs to you.</h2>
+        <p>No Fuzami account is required. Your active pet records are stored on your device, with optional Smart Backup recovery points in your private iCloud app data. Fuzami has no ads and does not sell your personal information.</p>
+        <a href="privacy.html" class="btn btn-secondary">Learn about Privacy</a>
+    </section>
+
+    <!-- Smart Backup Section -->
+    <section class="info-section fade-up">
+        <i class="fa-solid fa-cloud-arrow-up info-icon"></i>
+        <h2>A safer way to keep their story.</h2>
+        <p>When you turn on Smart Backup, Fuzami creates versioned recovery points in your private iCloud app data. Recovery points can include records, routes, small photo previews, and health documents when space allows. Full-quality photos and videos are not duplicated into the backup.</p>
+        <p>Smart Backup is optional and provides backup and restore rather than live synchronization between devices. You can also export a backup file to keep in Files, another cloud service, or on a computer.</p>
     </section>
 
     <!-- Fuzami Pro Section -->
     <section class="pro-section" id="pro">
         <div class="pro-container fade-up">
-            <span class="pro-badge">Fuzami Pro</span>
-            <h2>Unlock the full story.</h2>
-            <p style="margin-bottom: 2rem;">Get everything you need to keep your pet's memory safe forever.</p>
+            <span class="pro-badge">FUZAMI PRO</span>
+            <h2>Make more of every memory.</h2>
+            <p style="margin-bottom: 2rem;">Unlock the complete Fuzami experience with an optional auto-renewable subscription.</p>
             
             <div class="pro-features">
                 <div class="pro-feature">
-                    <i class="fa-solid fa-check"></i> Unlimited pet profiles
+                    <i class="fa-solid fa-check"></i> Multiple pet profiles
                 </div>
                 <div class="pro-feature">
-                    <i class="fa-solid fa-check"></i> All 12 Card Studio templates
+                    <i class="fa-solid fa-check"></i> All Card Studio designs and styles
                 </div>
                 <div class="pro-feature">
-                    <i class="fa-solid fa-check"></i> Time-lapse video export
+                    <i class="fa-solid fa-check"></i> Full monthly and yearly recaps
                 </div>
                 <div class="pro-feature">
-                    <i class="fa-solid fa-check"></i> Monthly & yearly recaps
+                    <i class="fa-solid fa-check"></i> Unlimited growth time-lapse exports
                 </div>
                 <div class="pro-feature">
                     <i class="fa-solid fa-check"></i> PDF and CSV health exports
                 </div>
                 <div class="pro-feature">
-                    <i class="fa-solid fa-check"></i> Watermark-free sharing
+                    <i class="fa-solid fa-check"></i> Cards and videos without the Fuzami watermark
                 </div>
             </div>
             
-            <a href="https://apps.apple.com/app/id6766658888" target="_blank" class="btn btn-teal">
-                <i class="fa-solid fa-crown"></i> Upgrade in App
+            <p style="font-size: 0.85rem; color: var(--text-light); max-width: 600px; margin: 0 auto 2rem;">Prices, billing periods, and any available offers are shown in the app before purchase. Subscriptions can be managed or canceled through your Apple Account settings.</p>
+            
+            <a href="#pro" class="btn btn-teal">
+                Discover Fuzami Pro
             </a>
         </div>
+    </section>
+
+    <!-- Closing CTA Section -->
+    <section class="info-section fade-up" style="padding-top: 2rem;">
+        <h2>Their days become your favorite memories.</h2>
+        <p>Start with one pet profile for free. Add today's moment, keep care information close, and let your pet's story grow one day at a time.</p>
+        <a href="#features" class="btn btn-primary">Explore Fuzami</a>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-logo">
-                <i class="fa-solid fa-paw"></i> Fuzami
+                Fuzami
             </div>
             
             <p class="footer-tagline">
-                Private by design. Your data stays on your device and private iCloud. No accounts, no ads, no data selling.
+                Care for today. Memories for years.
             </p>
             
             <div class="footer-links">
                 <a href="privacy.html">Privacy Policy</a>
                 <a href="terms.html">Terms of Use</a>
-                <a href="mailto:cihangirkankaya.apps@gmail.com">Contact Support</a>
+                <a href="support.html">Support</a>
             </div>
             
             <div class="footer-bottom">
                 <span>&copy; 2026 Fuzami. All rights reserved.</span>
-                <span>Crafted with <i class="fa-solid fa-heart" style="color: var(--coral)"></i> for pets everywhere.</span>
             </div>
         </div>
     </footer>

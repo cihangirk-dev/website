@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support - Fuzami</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-burgundy: #B02F3A;
+            --secondary-teal: #006D63;
+            --light-bg: #F9F8F6;
+            --text-primary: #1A1A2E;
+            --text-secondary: #4B5563;
+            --glass-bg: rgba(249, 248, 246, 0.9);
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        body { 
+            font-family: 'Nunito', sans-serif; 
+            background-color: var(--light-bg); 
+            color: var(--text-primary); 
+            line-height: 1.6; 
+            margin: 0; 
+            padding: 0; 
+        }
+        a { text-decoration: none; color: inherit; }
+        
+        /* Navbar */
+        nav { 
+            padding: 15px 40px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background: var(--glass-bg); 
+            backdrop-filter: blur(10px); 
+            position: sticky; 
+            top: 0; 
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            z-index: 100;
+        }
+        .nav-brand { font-size: 1.5rem; font-weight: 800; color: var(--primary-burgundy); display: flex; align-items: center; gap: 10px; }
+        .nav-links { display: flex; gap: 24px; }
+        .nav-links a { color: var(--text-secondary); font-weight: 600; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--primary-burgundy); }
+        
+        .container { max-width: 800px; margin: 40px auto 100px; padding: 0 20px; }
+        
+        /* Hero */
+        .hero { text-align: center; margin-bottom: 60px; padding: 40px 0; }
+        .hero h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 16px; color: var(--primary-burgundy); font-weight: 800; }
+        .hero p { font-size: 1.25rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto 30px; }
+        .btn { 
+            display: inline-block; 
+            background: var(--primary-burgundy); 
+            color: white; 
+            padding: 12px 28px; 
+            border-radius: 50px; 
+            font-weight: 700; 
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(176, 47, 58, 0.3);
+        }
+        .btn:hover { background: #922530; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(176, 47, 58, 0.4); }
+        
+        /* Sections */
+        section { margin-bottom: 60px; }
+        h2 { font-size: 2rem; margin-bottom: 24px; color: var(--primary-burgundy); font-weight: 800; }
+        h3 { font-size: 1.5rem; margin-bottom: 16px; color: var(--secondary-teal); }
+        p { color: var(--text-secondary); margin-bottom: 16px; }
+        
+        /* Contact Box */
+        .contact-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        .contact-card h2 { margin-top: 0; color: var(--secondary-teal); }
+        .contact-card ul { padding-left: 20px; margin-bottom: 20px; color: var(--text-secondary); }
+        .contact-card li { margin-bottom: 8px; }
+        .alert { 
+            background: #FFF0F2; 
+            border-left: 4px solid var(--primary-burgundy); 
+            padding: 16px; 
+            border-radius: 4px 8px 8px 4px;
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+            color: #842029;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .alert i { margin-top: 3px; color: var(--primary-burgundy); }
+        .note {
+            background: #F0F9FA;
+            border-left: 4px solid var(--secondary-teal);
+            padding: 16px;
+            border-radius: 4px 8px 8px 4px;
+            font-size: 0.95rem;
+            color: #055160;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .note i { margin-top: 3px; color: var(--secondary-teal); }
+
+        /* FAQ Accordion */
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .faq-item {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: box-shadow 0.2s;
+        }
+        .faq-item:hover {
+            box-shadow: var(--shadow-md);
+        }
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            padding: 20px;
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: inherit;
+        }
+        .faq-question i {
+            color: var(--secondary-teal);
+            transition: transform 0.3s ease;
+        }
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: var(--text-secondary);
+        }
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 800px;
+        }
+
+        /* Links */
+        .content-link {
+            color: var(--secondary-teal);
+            font-weight: 600;
+            text-decoration: underline;
+            text-decoration-color: rgba(0, 109, 99, 0.3);
+            text-underline-offset: 3px;
+        }
+        .content-link:hover {
+            text-decoration-color: var(--secondary-teal);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--text-primary);
+            color: white;
+            padding: 50px 20px 30px;
+            text-align: center;
+            margin-top: 80px;
+            border-radius: 40px 40px 0 0;
+        }
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #FF6B6B; /* Coral accent from index */
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        .footer-tagline {
+            color: #A0AEC0;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        .footer-links a {
+            color: #E2E8F0;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover {
+            color: #FF6B6B;
+        }
+        .footer-bottom {
+            color: #718096;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 600px) {
+            nav { flex-direction: column; gap: 16px; padding: 15px 20px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+            .hero h1 { font-size: 2rem; }
+            h2 { font-size: 1.75rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="nav-brand">Fuzami</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Use</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <header class="hero">
+            <h1>How can we help?</h1>
+            <p>Find quick answers about Fuzami, backups, subscriptions, notifications, walk tracking, privacy, and your pet's records.</p>
+            <a href="#contact" class="btn">Contact Support</a>
+        </header>
+
+        <!-- FAQ Section -->
+        <section id="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">Do I need a Fuzami account? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>No. Fuzami does not require a separate Fuzami account. Your active records are stored on your device. Apple services such as the App Store, Photos, and optional iCloud Smart Backup may require an Apple Account.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">Where is my data stored? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>Your active pet records and small image previews are stored on your device. Full-quality photos and videos remain in your Photos library. If you turn on Smart Backup, Fuzami creates versioned recovery points in your private iCloud app data.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">Does Smart Backup synchronize my devices? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>No. Smart Backup creates recovery points that you can restore. It does not provide live synchronization of active records between your iPhone and iPad.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">How do I turn on Smart Backup? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>Open Fuzami > Settings > Backup & Restore, then turn on Smart Backup. You must be signed in to iCloud and have enough available iCloud storage. Backup is optional and is never required to use Fuzami.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">What is included in a Smart Backup recovery point? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>A recovery point may include pet records, moments, routes, small photo previews, and health documents when storage permits. Full-quality photos and videos are not duplicated into the recovery point.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">How do I restore a backup? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>Open Settings > Backup & Restore, choose an available recovery point, and select Check and Restore. Fuzami checks the recovery point before replacing your current active data. Restoring changes the active data on the device, so review the displayed recovery point carefully. You can also use Restore from Backup File to restore a compatible backup file that you previously exported.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">How do I move my data to a new iPhone? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>On the old iPhone, open Settings > Backup & Restore. Create or verify a recent Smart Backup recovery point, or select Export or Move to New iPhone and save the exported backup file somewhere you can access from the new phone. On the new iPhone, install Fuzami and choose the relevant iCloud recovery point or Restore from Backup File. Keep the old copy until you have confirmed that the records you need are present.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">Can I keep a separate backup file? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>Yes. Open Settings > Backup & Restore > Export or Move to New iPhone. Store the exported file in Files, another trusted cloud service, or on a computer. Backup files may contain private health, document, and route information, so protect them carefully.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">How do I delete Fuzami backup data from iCloud? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>Open Settings > Backup & Restore > Delete iCloud Backup Data, then confirm the deletion. This permanently removes Fuzami recovery points from that iCloud account and turns off Smart Backup. It does not delete the active records stored on your device.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">How do I delete a pet and its records? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>Open the pet's profile, choose the edit option, and select the delete action. Confirming deletion permanently removes that pet and its associated moments, health records and documents, care plans, weights, walks, cards, and time-lapse entries from the active data on that device. If Smart Backup is enabled, the deleted information may remain in an older recovery point until that point expires or you delete all Fuzami iCloud backup data.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">How do I manage or cancel Fuzami Pro? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>Open Fuzami > Settings > Manage Subscription. You can also manage subscriptions from your Apple Account subscription settings. Deleting the app does not cancel an active subscription. <a href="https://support.apple.com/en-us/HT202039" target="_blank" class="content-link">Manage Apple subscriptions</a>.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">How do I restore a Fuzami Pro purchase? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>Open the Fuzami Pro screen and select Restore Purchases. Make sure the device is signed in to the Apple Account used for the original purchase and has an internet connection. If restoration still fails, check Apple's purchase history and subscription status before contacting us. Do not email receipts containing unnecessary personal or payment information.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">How do I request a refund? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>Apple processes Fuzami purchases and handles eligible refund requests. Use Apple's official Report a Problem service or contact Apple Support. <a href="https://reportaproblem.apple.com/" target="_blank" class="content-link">Request help from Apple</a>.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">Why did I not receive a reminder? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>Open Fuzami > Settings > Notifications and confirm that the relevant reminder category is enabled. If Fuzami says notifications are disabled in System Settings, select Open Settings and allow notifications for Fuzami. Notifications may be delayed or suppressed by iOS or iPadOS settings, Focus modes, power conditions, or system scheduling. Do not use Fuzami as your only reminder for critical medication, care, or safety decisions.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">Why is walk tracking unavailable or inaccurate? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>Walk tracking requires Location access. Check iOS or iPadOS Settings > Privacy & Security > Location Services > Fuzami and allow the location access needed for the feature. For an active walk to continue in the background, the applicable background location access must remain available. GPS accuracy can vary because of buildings, tree cover, weather, device conditions, and satellite availability. Always remain aware of your surroundings and do not interact with the app when doing so would be unsafe.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">Why can I not select or save a photo? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>Check Fuzami's Photos permission in iOS or iPadOS Settings > Privacy & Security > Photos. Camera capture also requires Camera permission. Full-quality media remains in your Photos library, so deleting or restricting access to an original photo may affect how it appears in Fuzami.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">How do I free storage used by temporary files? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>Open Fuzami > Settings > Storage > Clear Temporary Files. This removes recreatable exports and previews. It does not remove your saved records or original media.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">Is Fuzami veterinary or emergency software? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>No. Fuzami helps organize information and memories. It does not provide veterinary diagnosis, treatment, dosing advice, or emergency monitoring. Contact a qualified veterinarian or local emergency service if an animal may be ill, injured, poisoned, or in danger.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">Which devices does Fuzami support? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>Fuzami is designed for compatible iPhone and iPad models running iOS 17.6 or iPadOS 17.6 or later. Some features require Camera, Photos, Location, Notifications, iCloud, or a network connection.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-card">
+            <h2>Contact Fuzami Support</h2>
+            <p>If you cannot find the answer below, email us at <a href="mailto:cihangirkankaya.apps@gmail.com" class="content-link">cihangirkankaya.apps@gmail.com</a>. You can also open Fuzami and go to Settings > Send Feedback.</p>
+            
+            <p>Please include:</p>
+            <ul>
+                <li>A short description of what happened.</li>
+                <li>The steps that led to the problem.</li>
+                <li>Your Fuzami app version and iOS or iPadOS version.</li>
+                <li>Your device model, if the issue may be device-specific.</li>
+                <li>A screenshot of the error, if it does not contain private information.</li>
+            </ul>
+
+            <div class="alert">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <div>
+                    <strong>Warning:</strong> Do not send passwords, payment-card information, Apple Account credentials, full health documents, microchip identifiers, or precise walk routes. If private information is essential to explain a problem, send only the minimum needed.
+                </div>
+            </div>
+
+            <div class="note">
+                <i class="fa-solid fa-circle-info"></i>
+                <div>
+                    <strong>Note:</strong> Support is provided by email. We will reply as soon as reasonably possible, but response times are not guaranteed.
+                </div>
+            </div>
+        </section>
+
+        <!-- Privacy and Legal -->
+        <section id="legal">
+            <h3>Privacy and legal</h3>
+            <p>Learn how Fuzami handles app records, optional backups, purchases, website requests, and support communications.</p>
+            <p>
+                <a href="privacy.html" class="content-link">Privacy Policy</a> &bull; 
+                <a href="terms.html" class="content-link">Terms of Use</a> &bull; 
+                <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" class="content-link">Apple Standard EULA</a>
+            </p>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">Fuzami</div>
+        <p class="footer-tagline">Care for today. Memories for years.</p>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Use</a>
+            <a href="mailto:cihangirkankaya.apps@gmail.com">Contact Support</a>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Fuzami. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Interactive FAQ Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const button = item.querySelector('.faq-question');
+                
+                button.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // Close all others
+                    faqItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                    });
+                    
+                    // Toggle current
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
